@@ -16,14 +16,8 @@ $app->get('/hello/{name}', function (Request $request, Response $response, array
 });
 
 // Customer routes
-require '../src/routes/libros.php';
-require '../src/routes/reviews.php';
-require '../src/routes/usuarios.php';
-require '../src/routes/empresas.php';
-require '../src/routes/alquileres.php';
-require '../src/routes/mail.php';
-require '../src/routes/oauth.php';
-require '../src/routes/yo.php';
+require '../src/routes/campaigns.php';
+//require '../src/routes/reviews.php';
 require '../src/routes/cors.php';
 
 
