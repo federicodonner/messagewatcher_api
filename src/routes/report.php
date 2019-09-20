@@ -4,12 +4,12 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 // Add product
 $app->post('/api/report', function (Request $request, Response $response) {
-    $params = $request->getBody();
+      $params = $request->getBody();
 
+    $text = $request->getParam('text');
+    $timestamp = time()-10800;
 
-    $campaign_id = $request->getParam('campaign');
-    $sql = "SELECT * from campaigns WHERE id = $campaign_id";
-
+      $sql = "INSERT INTO reports (message_date,message_text) VALUES (:message_date,:message_text)";
 
     try {
         // Get db object
@@ -17,24 +17,16 @@ $app->post('/api/report', function (Request $request, Response $response) {
         // Connect
         $db = $db->connect();
 
-        $stmt = $db->query($sql);
-        $campaign = $stmt->fetchAll(PDO::FETCH_OBJ);
-        $db = null;
+        $stmt = $db->prepare($sql);
 
-        $to = "federico.donner@telefonica.com";
-        $subject = "Ejecución de campaña ".$campaign->name." fallada.";
-        $message = "La campaña ".$campaign->name." falló en su ejecución.";
-        $message .= "El mensaje es '".$campaign->message."'.";
+        $stmt->bindParam(':message_date', $timestamp);
+        $stmt->bindParam(':message_text', $text);
+
+        $stmt->execute();
 
         $newResponse = $response->withStatus(200);
         $body = $response->getBody();
-
-        // Sending email
-        if (mail($to, $subject, $message)) {
-            $body->write('{"status": "success","message": "email sent"}');
-        } else {
-            $body->write('{"status": "failure","message": "email sending failed"}');
-        }
+        $body->write('{"status": "success","message": "report added"}');
         $newResponse = $newResponse->withBody($body);
         return $newResponse;
     } catch (PDOException $e) {
