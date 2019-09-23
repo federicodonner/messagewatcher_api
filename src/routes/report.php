@@ -7,9 +7,10 @@ $app->post('/api/report', function (Request $request, Response $response) {
       $params = $request->getBody();
 
     $text = $request->getParam('text');
+    $shortcode = $request->getParam('shortcode');
     $timestamp = time()-10800;
 
-      $sql = "INSERT INTO reports (message_date,message_text) VALUES (:message_date,:message_text)";
+      $sql = "INSERT INTO reports (message_date,message_text,shortcode) VALUES (:message_date,:message_text,:shortcode)";
 
     try {
         // Get db object
@@ -21,6 +22,7 @@ $app->post('/api/report', function (Request $request, Response $response) {
 
         $stmt->bindParam(':message_date', $timestamp);
         $stmt->bindParam(':message_text', $text);
+        $stmt->bindParam(':shortcode', $shortcode);
 
         $stmt->execute();
 
