@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.7.3
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: Sep 20, 2019 at 04:33 PM
--- Server version: 5.7.23
--- PHP Version: 7.2.10
+-- Host: localhost:3306
+-- Generation Time: Sep 23, 2019 at 10:01 AM
+-- Server version: 5.6.40-84.0-log
+-- PHP Version: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `messagewatcher`
+-- Database: `feder161_messagewatcher`
 --
 
 -- --------------------------------------------------------
@@ -62,7 +64,8 @@ CREATE TABLE `keepalive` (
 CREATE TABLE `reports` (
   `id` int(11) NOT NULL,
   `message_date` int(15) NOT NULL,
-  `message_text` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL
+  `message_text` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `shortcode` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -95,19 +98,17 @@ ALTER TABLE `reports`
 -- AUTO_INCREMENT for table `campaigns`
 --
 ALTER TABLE `campaigns`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `keepalive`
 --
 ALTER TABLE `keepalive`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 --
 -- AUTO_INCREMENT for table `reports`
 --
 ALTER TABLE `reports`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
