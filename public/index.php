@@ -18,6 +18,7 @@ $app->get('/hello/{name}', function (Request $request, Response $response, array
 // Customer routes
 require '../src/routes/campaigns.php';
 require '../src/routes/report.php';
+require '../src/routes/keepalive.php';
 //require '../src/routes/reviews.php';
 require '../src/routes/cors.php';
 
