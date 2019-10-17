@@ -16,6 +16,10 @@ $app->get('/api/returnreports', function (Request $request, Response $response) 
         $reports = $stmt->fetchAll(PDO::FETCH_OBJ);
         $db = null;
 
+        forEach($reports as $report){
+          $report->human_date = date('Y-m-d H:i:s',$report->message_date);
+        }
+
         // Add the campaigns array into an object for response
         $reportsResponse = array('reports'=>$reports);
         $newResponse = $response->withJson($reportsResponse);
@@ -39,6 +43,11 @@ $app->get('/api/returnkeepalives', function (Request $request, Response $respons
         $stmt = $db->query($sql);
         $reports = $stmt->fetchAll(PDO::FETCH_OBJ);
         $db = null;
+
+        forEach($reports as $report){
+          $report->human_date = date('Y-m-d H:i:s',$report->keepalive_date);
+        }
+
 
         // Add the campaigns array into an object for response
         $reportsResponse = array('keepalives'=>$reports);
